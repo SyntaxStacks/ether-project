@@ -13,4 +13,7 @@ const source = fs.readFileSync(inboxPath, 'utf8');
 module.exports = solc.compile(source, 1).contracts[':Inbox'];
 
 // log all compiled contracts for testing
+// comment out line 13.
+// uncomment line 19.
+// run "node compile.js" in terminal to see output
 // console.log(solc.compile(source, 1));
