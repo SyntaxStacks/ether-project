@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/writes/ether-project/issues"
   },
-  "homepage": "https://github.com/writes/ether-project#readme"
+  "homepage": "https://github.com/writes/ether-project#readme",
+  "dependencies": {
+    "solc": "^0.4.20"
+  }
 }
