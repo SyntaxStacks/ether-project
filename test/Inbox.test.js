@@ -1,6 +1,7 @@
 const assert = require('assert');
 const ganache = require('ganache-cli');
 const Web3 = require('web3');
+const sinon = require('sinon');
 
 const provider = ganache.provider();
 
@@ -12,16 +13,24 @@ const { interface, bytecode } = require('../compile');
 
 let accounts;
 let inbox;
+let sandbox;
 
 beforeEach(async () => {
   // list accounts
   accounts = await web3.eth.getAccounts();
+  sandbox = sinon.sandbox.create();
 
+  sandbox.stub(web3.eth.Contract.prototype, 'deploy').returns('expected returns');
+  sandbox.stub(web3.eth.Contract.prototype, 'send').returns('expected returns');
   // use accounts to deploy contract
   // represents what exists on chain
   inbox = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({ data: bytecode, arguments: ['Hi There!'] })
     .send({ from: accounts[0], gas: '1000000' });
+});
+
+afterEach(async () -> {
+  sinon.sandbox.restore();
 });
 
 describe('Inbox', () => {
